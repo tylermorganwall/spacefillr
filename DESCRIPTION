@@ -1,0 +1,21 @@
+Package: spacefillr
+Type: Package
+Title: Space-Filling Random and Quasi-Random Sequences
+Version: 0.1.0
+Authors@R: c(person("Tyler", "Morgan-Wall", email = "tylermw@gmail.com", 
+    role = c("aut", "cph", "cre"), comment = c(ORCID = "0000-0002-3131-3814")),
+    person("Andrew", "Helmer", role = c("ctb", "cph")),
+    person("Leonhard", "Grünschloß", role = c("ctb", "cph")))
+Maintainer: Tyler Morgan-Wall <tylermw@gmail.com>
+Description: Generates random and quasi-random space-filling sequences. Supports the following sequences: 'Halton', 'Sobol', 'Owen'-scrambled 'Sobol', progressive jittered, progressive multi-jittered ('PMJ'), 'PMJ' with blue noise, 'PMJ02', and 'PMJ02' with blue noise. Includes a 'C++' 'API'. Methods derived from "Constructing Sobol sequences with better two-dimensional projections" (2012) <doi:10.1137/070709359> S. Joe and F. Y. Kuo, and "Progressive Multi‐Jittered Sample Sequences" (2018) <doi:0.1111/cgf.13472> Christensen, P., Kensler, A. and Kilpatrick, C. 
+License: MIT + file LICENSE
+Imports:
+    Rcpp (>= 1.0.0)
+LinkingTo: 
+    Rcpp
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1
+URL: https://github.com/tylermorganwall/spacefillr
+BugReports: https://github.com/tylermorganwall/spacefillr/issues
+SystemRequirements: C++11
