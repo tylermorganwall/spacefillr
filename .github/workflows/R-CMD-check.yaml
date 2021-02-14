@@ -70,6 +70,7 @@ jobs:
       - name: Install system dependencies
         if: runner.os == 'Linux'
         run: |
+	  echo -e 'CXX14 = g++\n\n' > $HOME/.R/Makevars
           while read -r cmd
           do
             eval sudo $cmd
