@@ -11,11 +11,11 @@ using namespace Rcpp;
 #include "rng.h"
 
 // [[Rcpp::export]]
-List rcpp_generate_sobol_set(unsigned long long  N, unsigned int dim, unsigned int scramble) {
+List rcpp_generate_sobol_set(uint64_t  N, unsigned int dim, unsigned int scramble) {
   List final_set(N*dim);
   int counter = 0;
   for(unsigned int j = 0; j < dim; j++) {
-    for(unsigned long long i = 0; i < N; i++) {
+    for(uint64_t i = 0; i < N; i++) {
       final_set(counter) = spacefillr::sobol_single(i, j, scramble);
       counter = counter + 1;
     }
@@ -24,11 +24,11 @@ List rcpp_generate_sobol_set(unsigned long long  N, unsigned int dim, unsigned i
 }
 
 // [[Rcpp::export]]
-List rcpp_generate_sobol_owen_set(unsigned long long  N, unsigned int dim, unsigned int scramble) {
+List rcpp_generate_sobol_owen_set(uint64_t  N, unsigned int dim, unsigned int scramble) {
   List final_set(N*dim);
   int counter = 0;
   for(unsigned int j = 0; j < dim; j++) {
-    for(unsigned long long i = 0; i < N; i++) {
+    for(uint64_t i = 0; i < N; i++) {
       final_set(counter) = spacefillr::sobol_owen_reference_single(i, j, scramble);
       counter = counter + 1;
     }
@@ -37,11 +37,11 @@ List rcpp_generate_sobol_owen_set(unsigned long long  N, unsigned int dim, unsig
 }
 
 // [[Rcpp::export]]
-List rcpp_generate_sobol_owen_fast_set(unsigned long long  N, unsigned int dim, unsigned int scramble) {
+List rcpp_generate_sobol_owen_fast_set(uint64_t  N, unsigned int dim, unsigned int scramble) {
   List final_set(N*dim);
   int counter = 0;
   for(unsigned int j = 0; j < dim; j++) {
-    for(unsigned long long i = 0; i < N; i++) {
+    for(uint64_t i = 0; i < N; i++) {
       final_set(counter) = spacefillr::sobol_owen_fast_single(i, j, scramble);
       counter = counter + 1;
     }
@@ -50,19 +50,19 @@ List rcpp_generate_sobol_owen_fast_set(unsigned long long  N, unsigned int dim, 
 }
 
 // [[Rcpp::export]]
-double rcpp_generate_sobol_owen_fast_single(unsigned long long  i, unsigned int dim, unsigned int scramble) {
+double rcpp_generate_sobol_owen_fast_single(uint64_t  i, unsigned int dim, unsigned int scramble) {
   return(spacefillr::sobol_owen_fast_single(i, dim, scramble));
 }
 
 
 // [[Rcpp::export]]
-List rcpp_generate_halton_faure_set(unsigned long long  N, unsigned int dim) {
+List rcpp_generate_halton_faure_set(uint64_t  N, unsigned int dim) {
   List final_set(N*dim);
   spacefillr::Halton_sampler hs;
   hs.init_faure();
   int counter = 0;
   for(unsigned int j = 0; j < dim; j++) {
-    for(unsigned long long i = 0; i < N; i++) {
+    for(uint64_t i = 0; i < N; i++) {
       final_set(counter) = hs.sample(j,i);
       counter = counter + 1;
     }
@@ -73,14 +73,14 @@ List rcpp_generate_halton_faure_set(unsigned long long  N, unsigned int dim) {
 
 
 // [[Rcpp::export]]
-List rcpp_generate_halton_random_set(unsigned long long  N, unsigned int dim, unsigned int seed) {
+List rcpp_generate_halton_random_set(uint64_t  N, unsigned int dim, unsigned int seed) {
   List final_set(N*dim);
   random_gen rng(seed);
   spacefillr::Halton_sampler hs;
   hs.init_random(rng.rng);
   int counter = 0;
   for(unsigned int j = 0; j < dim; j++) {
-    for(unsigned long long i = 0; i < N; i++) {
+    for(uint64_t i = 0; i < N; i++) {
       final_set(counter) = hs.sample(j,i);
       counter = counter + 1;
     }
@@ -90,7 +90,7 @@ List rcpp_generate_halton_random_set(unsigned long long  N, unsigned int dim, un
 
 
 // [[Rcpp::export]]
-double rcpp_generate_halton_faure_single(unsigned long long  i, unsigned int dim) {
+double rcpp_generate_halton_faure_single(uint64_t  i, unsigned int dim) {
   spacefillr::Halton_sampler hs;
   hs.init_faure();
   return(hs.sample(i,dim));
@@ -99,7 +99,7 @@ double rcpp_generate_halton_faure_single(unsigned long long  i, unsigned int dim
 
 
 // [[Rcpp::export]]
-double rcpp_generate_halton_random_single(unsigned long long  i, unsigned int dim, unsigned int seed) {
+double rcpp_generate_halton_random_single(uint64_t  i, unsigned int dim, unsigned int seed) {
   random_gen rng(seed);
   spacefillr::Halton_sampler hs;
   hs.init_random(rng.rng);
@@ -109,7 +109,7 @@ double rcpp_generate_halton_random_single(unsigned long long  i, unsigned int di
 //PJ + PMJ
 
 // [[Rcpp::export]]
-List rcpp_generate_pj_set(unsigned long long  N, int seed) {
+List rcpp_generate_pj_set(uint64_t  N, int seed) {
   List final_set(N*2);
   random_gen rng(seed);
   std::unique_ptr<pmj::Point[]> points = pmj::GetProgJitteredSamples(N, rng);
@@ -123,7 +123,7 @@ List rcpp_generate_pj_set(unsigned long long  N, int seed) {
 }
 
 // [[Rcpp::export]]
-List rcpp_generate_pmj_set(unsigned long long  N, int seed) {
+List rcpp_generate_pmj_set(uint64_t  N, int seed) {
   List final_set(N*2);
   random_gen rng(seed);
   std::unique_ptr<pmj::Point[]> points = pmj::GetProgMultiJitteredSamples(N, rng);
@@ -138,7 +138,7 @@ List rcpp_generate_pmj_set(unsigned long long  N, int seed) {
 
 
 // [[Rcpp::export]]
-List rcpp_generate_pmjbn_set(unsigned long long  N, int seed) {
+List rcpp_generate_pmjbn_set(uint64_t  N, int seed) {
   List final_set(N*2);
   random_gen rng(seed);
   std::unique_ptr<pmj::Point[]> points = pmj::GetProgMultiJitteredSamplesWithBlueNoise(N, rng);
@@ -152,7 +152,7 @@ List rcpp_generate_pmjbn_set(unsigned long long  N, int seed) {
 }
 
 // [[Rcpp::export]]
-List rcpp_generate_pmj02_set(unsigned long long  N, int seed) {
+List rcpp_generate_pmj02_set(uint64_t  N, int seed) {
   List final_set(N*2);
   random_gen rng(seed);
   std::unique_ptr<pmj::Point[]> points = pmj::GetPMJ02Samples(N, rng);
@@ -166,7 +166,7 @@ List rcpp_generate_pmj02_set(unsigned long long  N, int seed) {
 }
 
 // [[Rcpp::export]]
-List rcpp_generate_pmj02bn_set(unsigned long long  N, int seed) {
+List rcpp_generate_pmj02bn_set(uint64_t  N, int seed) {
   List final_set(N*2);
   random_gen rng(seed);
   std::unique_ptr<pmj::Point[]> points = pmj::GetPMJ02SamplesWithBlueNoise(N, rng);

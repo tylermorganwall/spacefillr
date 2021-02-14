@@ -294,7 +294,7 @@ public:
 
     typedef typename std::conditional<std::is_same<uint64_t,
                                                    unsigned long>::value,
-                                      unsigned long long,
+                                      uint64_t,
                                       unsigned long>::type
             uint_missing_t;
 

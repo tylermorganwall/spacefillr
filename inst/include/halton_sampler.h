@@ -3286,13 +3286,13 @@ inline float Halton_sampler::halton1619(const unsigned index) const
             m_perm1619[(index / 2621161u) % 1619u]) * float(0x1.fffffcp-1 / 4243659659u); // Results in [0,1).
 }
 
-static inline double generate_halton_faure_single(unsigned long long  i, unsigned int dim) {
+static inline double generate_halton_faure_single(uint64_t  i, unsigned int dim) {
     Halton_sampler hs;
     hs.init_faure();
     return(hs.sample(i,dim));
 }
 
-static inline double generate_halton_random_single(unsigned long long  i, unsigned int dim, unsigned int seed) {
+static inline double generate_halton_random_single(uint64_t  i, unsigned int dim, unsigned int seed) {
     random_gen rng(seed);
     Halton_sampler hs;
     hs.init_random(rng.rng);
