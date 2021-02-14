@@ -19,15 +19,15 @@ Generate a set of values from a Progressive Multi-Jittered set.
 }
 \examples{
 #Generate a 2D sample:
-points2d = generate_pmj_set(n=100)
+points2d = generate_pmj_set(n=1000)
 plot(points2d, xlim=c(0,1),ylim=c(0,1))
 
 #Generate a longer sequence of values from that set
-points2d = generate_pmj_set(n=150)
+points2d = generate_pmj_set(n=1500)
 plot(points2d, xlim=c(0,1),ylim=c(0,1))
 
 #Generate a new set by changing the seed
-points2d = generate_pmj_set(n=150,seed=10)
+points2d = generate_pmj_set(n=1500,seed=10)
 plot(points2d, xlim=c(0,1),ylim=c(0,1))
 
 #Integrate the value of pi by counting the number of randomly generated points that fall

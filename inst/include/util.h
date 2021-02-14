@@ -2,40 +2,67 @@
  * Copyright (C) Andrew Helmer 2020.
  * Licensed under MIT Open-Source License: see LICENSE.
  *
- * This file implements a few functions that are useful for multiple sampling
- * sequences, especially random number generation and nearest neighbor search
- * on a grid.
+ * Implements a few utility functions useful across the code base, especially
+ * random number generation.
  */
-#include "util.h"
+#ifndef SAMPLE_GENERATION_UTIL_H_
+#define SAMPLE_GENERATION_UTIL_H_
 
-#include <algorithm>
+#include <memory>
 #include <random>
+#include <string>
 #include <utility>
 #include <vector>
+
 #include "rng.h"
 
 namespace pmj {
 
-// thread_local static std::random_device r;
-// thread_local static std::default_random_engine gen(r());
+static constexpr int kBestCandidateSamples = 100;
+
+typedef struct {
+  double x;
+  double y;
+} Point;
+
+// Gets a random double between any two numbers. Thread-safe.
+double UniformRand(double min, double max, random_gen& rng);
+// Generates a random int in the given range. Thread-safe.
+int UniformInt(int min, int max, random_gen& rng);
+
+// Given a set of samples, a grid that points to existing samples, and the
+// number of cells in one dimension of that grid, returns the candidate which
+// is the furthest from all existing points.
+Point GetBestCandidateOfSamples(const std::vector<Point>& candidates,
+                                const Point* sample_grid[],
+                                const int dim);
+
+// Given a sequence of PMJ02 points, this will shuffle them, while the resulting
+// shuffle will still be a progressive (0,2) sequence. We don't actually use it
+// anywhere, this is just to show how easy it is.
+std::vector<const Point*> ShufflePMJ02Sequence(const pmj::Point points[],
+                                               const int n);
+
+// This performs a shuffle similar to the one above, but it's easier and doesn't
+// require storing the shuffle, only a single random int. It doesn't shuffle
+// quite as well though.
+std::vector<const Point*> ShufflePMJ02SequenceXor(const pmj::Point points[],
+                                                  const int n);
+
+// Just for comparison with performance testing and error analysis.
+std::unique_ptr<Point[]> GetUniformRandomSamples(
+    const int num_samples);
+
+
 
 double UniformRand(double min, double max, random_gen& rng) {
-  // thread_local static std::uniform_real_distribution<double> uniform;
-  //
-  // std::uniform_real_distribution<double>::param_type param(min, max);
-
   return(rng.unif_rand()*(max - min) + min);
 }
 
 int UniformInt(int min, int max, random_gen& rng) {
-  // thread_local static std::uniform_int_distribution<int> uniform;
-
-  // std::uniform_int_distribution<int>::param_type param(min, max);
-
   return(rng.unif_rand()*(max - min) + min);
 }
 
-namespace {
 inline double GetToroidalDistSq(double x1, double y1, double x2, double y2) {
   double x_diff = abs(x2-x1);
   if (x_diff > 0.5) x_diff = 1.0 - x_diff;
@@ -55,7 +82,7 @@ inline int WrapIndex(const int index,
 inline void UpdateMinDistSq(
     const Point& candidate, const Point& point, double* min_dist_sq) {
   double dist_sq =
-      GetToroidalDistSq(point.x, point.y, candidate.x, candidate.y);
+    GetToroidalDistSq(point.x, point.y, candidate.x, candidate.y);
   if (dist_sq < *min_dist_sq) {
     *min_dist_sq = dist_sq;
   }
@@ -63,10 +90,10 @@ inline void UpdateMinDistSq(
 
 inline void UpdateMinDistSqWithPointInCell(const Point& sample,
                                            const Point* sample_grid[],
-                                           const int x,
-                                           const int y,
-                                           const int dim,
-                                           double* min_dist_sq) {
+                                                                   const int x,
+                                                                   const int y,
+                                                                   const int dim,
+                                                                   double* min_dist_sq) {
   const int wrapped_x = WrapIndex(x, dim);
   const int wrapped_y = WrapIndex(y, dim);
   const Point* pt = sample_grid[wrapped_y*dim + wrapped_x];
@@ -77,8 +104,8 @@ inline void UpdateMinDistSqWithPointInCell(const Point& sample,
 
 double GetNearestNeighborDistSq(const Point& sample,
                                 const Point* sample_grid[],
-                                const int dim,
-                                const double max_min_dist_sq) {
+                                                        const int dim,
+                                                        const double max_min_dist_sq) {
   // This function works by using the sample grid, since we know that the points
   // are well-distributed with at most one point in each cell.
   //
@@ -106,16 +133,16 @@ double GetNearestNeighborDistSq(const Point& sample,
     int y = y_min;
     for (; x < x_max; x++)  // Scan right over bottom row, ending at corner.
       UpdateMinDistSqWithPointInCell(
-          sample, sample_grid, x, y, dim, &min_dist_sq);
+        sample, sample_grid, x, y, dim, &min_dist_sq);
     for (; y < y_max; y++)  // Scan up over right column, ending at corner.
       UpdateMinDistSqWithPointInCell(
-          sample, sample_grid, x, y, dim, &min_dist_sq);
+        sample, sample_grid, x, y, dim, &min_dist_sq);
     for (; x > x_min; x--)  // Scan left over top row.
       UpdateMinDistSqWithPointInCell(
-          sample, sample_grid, x, y, dim, &min_dist_sq);
+        sample, sample_grid, x, y, dim, &min_dist_sq);
     for (; y > y_min; y--)  // Scan down over left column.
       UpdateMinDistSqWithPointInCell(
-          sample, sample_grid, x, y, dim, &min_dist_sq);
+        sample, sample_grid, x, y, dim, &min_dist_sq);
 
     // sqrt(0.5)*grid_size is the furthest a point can be from the center of its
     // square, so we add that.
@@ -129,11 +156,10 @@ double GetNearestNeighborDistSq(const Point& sample,
 
   return min_dist_sq;
 }
-}  // namespace
 
 Point GetBestCandidateOfSamples(const std::vector<Point>& candidates,
                                 const Point* sample_grid[],
-                                const int dim) {
+                                                        const int dim) {
   // Hypothetically, it could be faster to search all the points in parallel,
   // culling points as we go, but a naive implementation of this was only a tiny
   // bit faster, and the code was uglier, so we'll leave it for now.
@@ -143,10 +169,10 @@ Point GetBestCandidateOfSamples(const std::vector<Point>& candidates,
   for (int i = 0; i < candidates.size(); i++) {
     Point cand_sample = candidates[i];
     double dist_sq =
-        GetNearestNeighborDistSq(cand_sample,
-                                 sample_grid,
-                                 dim,
-                                 max_min_dist_sq);
+      GetNearestNeighborDistSq(cand_sample,
+                               sample_grid,
+                               dim,
+                               max_min_dist_sq);
     if (dist_sq > max_min_dist_sq) {
       best_candidate = cand_sample;
       max_min_dist_sq = dist_sq;
@@ -218,5 +244,7 @@ std::unique_ptr<Point[]> GetUniformRandomSamples(const int num_samples, random_g
   return samples;
 }
 
+
 }  // namespace pmj
 
+#endif  // SAMPLE_GENERATION_UTIL_H_

@@ -1,16 +1,14 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
+#include "util.h"
 #include "pj.h"
 #include "pmj.h"
-
 #include "pmj02.h"
 #include "sobol.h"
 #include "halton_sampler.h"
 
 #include "rng.h"
-
-#include "util.h"
 
 // [[Rcpp::export]]
 List rcpp_generate_sobol_set(unsigned long long  N, unsigned int dim, unsigned int scramble) {
@@ -60,7 +58,7 @@ double rcpp_generate_sobol_owen_fast_single(unsigned long long  i, unsigned int 
 // [[Rcpp::export]]
 List rcpp_generate_halton_faure_set(unsigned long long  N, unsigned int dim) {
   List final_set(N*dim);
-  Halton_sampler hs;
+  spacefillr::Halton_sampler hs;
   hs.init_faure();
   int counter = 0;
   for(unsigned int j = 0; j < dim; j++) {
@@ -78,7 +76,7 @@ List rcpp_generate_halton_faure_set(unsigned long long  N, unsigned int dim) {
 List rcpp_generate_halton_random_set(unsigned long long  N, unsigned int dim, unsigned int seed) {
   List final_set(N*dim);
   random_gen rng(seed);
-  Halton_sampler hs;
+  spacefillr::Halton_sampler hs;
   hs.init_random(rng.rng);
   int counter = 0;
   for(unsigned int j = 0; j < dim; j++) {
@@ -93,7 +91,7 @@ List rcpp_generate_halton_random_set(unsigned long long  N, unsigned int dim, un
 
 // [[Rcpp::export]]
 double rcpp_generate_halton_faure_single(unsigned long long  i, unsigned int dim) {
-  Halton_sampler hs;
+  spacefillr::Halton_sampler hs;
   hs.init_faure();
   return(hs.sample(i,dim));
 }
@@ -103,7 +101,7 @@ double rcpp_generate_halton_faure_single(unsigned long long  i, unsigned int dim
 // [[Rcpp::export]]
 double rcpp_generate_halton_random_single(unsigned long long  i, unsigned int dim, unsigned int seed) {
   random_gen rng(seed);
-  Halton_sampler hs;
+  spacefillr::Halton_sampler hs;
   hs.init_random(rng.rng);
   return(hs.sample(i,dim));
 }
