@@ -67,6 +67,7 @@ jobs:
       - name: Install system dependencies
         if: runner.os == 'Linux'
         run: |
+          system("echo '\n\n  CXX14 = g++ -fPIC' > ~/.R/Makevars")
           pak::local_system_requirements(execute = TRUE)
           pak::pkg_system_requirements("rcmdcheck", execute = TRUE)
         shell: Rscript {0}
