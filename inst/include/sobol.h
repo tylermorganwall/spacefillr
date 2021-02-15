@@ -171,7 +171,6 @@ static inline uint32_t sobol_u32(uint32_t index, uint32_t dimension, uint32_t sc
   if(dimension >= NumSobolDimensions) {
     throw std::runtime_error("Too many dimensions");
   }
-  uint32_t result = 0;
   uint32_t v = scramble;
   for (int i = dimension * SobolMatrixSize; index != 0; index >>= 1, i++) {
     if (index & 1) {

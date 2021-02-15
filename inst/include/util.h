@@ -64,9 +64,9 @@ int UniformInt(int min, int max, random_gen& rng) {
 }
 
 inline double GetToroidalDistSq(double x1, double y1, double x2, double y2) {
-  double x_diff = abs(x2-x1);
+  double x_diff = fabs(x2-x1);
   if (x_diff > 0.5) x_diff = 1.0 - x_diff;
-  double y_diff = abs(y2-y1);
+  double y_diff = fabs(y2-y1);
   if (y_diff > 0.5) y_diff = 1.0 - y_diff;
 
   return (x_diff*x_diff)+(y_diff*y_diff);
@@ -104,8 +104,8 @@ inline void UpdateMinDistSqWithPointInCell(const Point& sample,
 
 double GetNearestNeighborDistSq(const Point& sample,
                                 const Point* sample_grid[],
-                                                        const int dim,
-                                                        const double max_min_dist_sq) {
+                                const int dim,
+                                const double max_min_dist_sq) {
   // This function works by using the sample grid, since we know that the points
   // are well-distributed with at most one point in each cell.
   //
@@ -159,7 +159,7 @@ double GetNearestNeighborDistSq(const Point& sample,
 
 Point GetBestCandidateOfSamples(const std::vector<Point>& candidates,
                                 const Point* sample_grid[],
-                                                        const int dim) {
+                                const int dim) {
   // Hypothetically, it could be faster to search all the points in parallel,
   // culling points as we go, but a naive implementation of this was only a tiny
   // bit faster, and the code was uglier, so we'll leave it for now.

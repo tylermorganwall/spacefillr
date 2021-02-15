@@ -21,6 +21,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![R build status](https://github.com/tylermorganwall/spacefillr/workflows/R-CMD-check/badge.svg)](https://github.com/tylermorganwall/spacefillr/actions)
+[![R-CMD-check](https://github.com/tylermorganwall/spacefillr/workflows/R-CMD-check/badge.svg)](https://github.com/tylermorganwall/spacefillr/actions)
 <!-- badges: end -->
 
 spacefillr is a package for generating random and quasi-random space-filling sequences. Supports the following sequences: 'Halton', 'Sobol', 'Owen'-scrambled 'Sobol', progressive jittered, progressive multi-jittered ('PMJ'), 'PMJ' with blue noise, 'PMJ02', and 'PMJ02' with blue noise. Includes a 'C++' 'API'. Methods derived from "Constructing Sobol sequences with better two-dimensional projections" (2012) S. Joe and F. Y. Kuo, and "Progressive Multi‐Jittered Sample Sequences" (2018) Christensen, P., Kensler, A. and Kilpatrick, C. 

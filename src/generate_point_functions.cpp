@@ -114,7 +114,7 @@ List rcpp_generate_pj_set(uint64_t  N, int seed) {
   random_gen rng(seed);
   std::unique_ptr<pmj::Point[]> points = pmj::GetProgJitteredSamples(N, rng);
   int counter = 0;
-  for(int i = 0; i < N; i++) {
+  for(uint64_t i = 0; i < N; i++) {
     final_set(counter) = points[i].x;
     final_set(counter+1) = points[i].y;
     counter += 2;
@@ -128,7 +128,7 @@ List rcpp_generate_pmj_set(uint64_t  N, int seed) {
   random_gen rng(seed);
   std::unique_ptr<pmj::Point[]> points = pmj::GetProgMultiJitteredSamples(N, rng);
   int counter = 0;
-  for(int i = 0; i < N; i++) {
+  for(uint64_t i = 0; i < N; i++) {
     final_set(counter) = points[i].x;
     final_set(counter+1) = points[i].y;
     counter += 2;
@@ -143,7 +143,7 @@ List rcpp_generate_pmjbn_set(uint64_t  N, int seed) {
   random_gen rng(seed);
   std::unique_ptr<pmj::Point[]> points = pmj::GetProgMultiJitteredSamplesWithBlueNoise(N, rng);
   int counter = 0;
-  for(int i = 0; i < N; i++) {
+  for(uint64_t i = 0; i < N; i++) {
     final_set(counter) = points[i].x;
     final_set(counter+1) = points[i].y;
     counter += 2;
@@ -157,7 +157,7 @@ List rcpp_generate_pmj02_set(uint64_t  N, int seed) {
   random_gen rng(seed);
   std::unique_ptr<pmj::Point[]> points = pmj::GetPMJ02Samples(N, rng);
   int counter = 0;
-  for(int i = 0; i < N; i++) {
+  for(uint64_t i = 0; i < N; i++) {
     final_set(counter) = points[i].x;
     final_set(counter+1) = points[i].y;
     counter += 2;
@@ -171,7 +171,7 @@ List rcpp_generate_pmj02bn_set(uint64_t  N, int seed) {
   random_gen rng(seed);
   std::unique_ptr<pmj::Point[]> points = pmj::GetPMJ02SamplesWithBlueNoise(N, rng);
   int counter = 0;
-  for(int i = 0; i < N; i++) {
+  for(uint64_t i = 0; i < N; i++) {
     final_set(counter) = points[i].x;
     final_set(counter+1) = points[i].y;
     counter += 2;

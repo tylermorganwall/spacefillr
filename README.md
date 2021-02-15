@@ -7,6 +7,7 @@
 
 [![R build
 status](https://github.com/tylermorganwall/spacefillr/workflows/R-CMD-check/badge.svg)](https://github.com/tylermorganwall/spacefillr/actions)
+[![R-CMD-check](https://github.com/tylermorganwall/spacefillr/workflows/R-CMD-check/badge.svg)](https://github.com/tylermorganwall/spacefillr/actions)
 <!-- badges: end -->
 
 spacefillr is a package for generating random and quasi-random
