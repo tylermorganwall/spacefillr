@@ -24,7 +24,7 @@ namespace pmj {
 
 // Progressive jittered samples shouldn't really be used, it's more just a
 // learning example.
-std::unique_ptr<pmj::Point[]> GetProgJitteredSamples(
+std::unique_ptr<Point[]> GetProgJitteredSamples(
     const int num_samples, random_gen& rng);
 
 Point RandomSample(

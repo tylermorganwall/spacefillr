@@ -55,7 +55,7 @@ class SampleSet2 {
             int grid_memory_size = 1;
             while (grid_memory_size < num_samples)
                 grid_memory_size <<= 2;
-            sample_grid_ = std::make_unique<const Point*[]>(grid_memory_size);
+            sample_grid_ = std::make_unique<Point*[]>(grid_memory_size);
             x_strata_.resize(grid_memory_size);
             y_strata_.resize(grid_memory_size);
         }
@@ -78,7 +78,7 @@ class SampleSet2 {
         const Point& sample(const int sample_index) const {
             return samples_[sample_index];
         }
-        const Point* samples() const {
+        Point* samples() const {
             return samples_.get();
         }
         const int dim() const { return dim_; }
@@ -103,7 +103,7 @@ class SampleSet2 {
             std::vector<bool> y_strata_ {false};
 
             // The sample grid is used for nearest neighbor lookups.
-            std::unique_ptr<const Point*[]> sample_grid_;
+            std::unique_ptr<Point*[]> sample_grid_;
 
             int n_ = 1;  // Number of samples in the next pass.
             bool is_power_of_4_ = true;  // Whether n is a power of 4.
@@ -169,7 +169,7 @@ void SampleSet2::SubdivideStrata() {
     std::fill_n(x_strata_.begin(), n_, 0);
     std::fill_n(y_strata_.begin(), n_, 0);
     for (int i = 0; i < old_n; i++) {
-        const auto& sample = samples_[i];
+        auto& sample = samples_[i];
 
         x_strata_[sample.x * n_] = true;
         y_strata_[sample.y * n_] = true;
