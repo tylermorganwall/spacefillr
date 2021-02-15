@@ -33,20 +33,20 @@ int UniformInt(int min, int max, random_gen& rng);
 // Given a set of samples, a grid that points to existing samples, and the
 // number of cells in one dimension of that grid, returns the candidate which
 // is the furthest from all existing points.
-Point GetBestCandidateOfSamples(std::vector<Point>& candidates,
-                                Point* sample_grid[],
+Point GetBestCandidateOfSamples(const std::vector<Point>& candidates,
+                                const Point* sample_grid[],
                                 const int dim);
 
 // Given a sequence of PMJ02 points, this will shuffle them, while the resulting
 // shuffle will still be a progressive (0,2) sequence. We don't actually use it
 // anywhere, this is just to show how easy it is.
-std::vector<Point*> ShufflePMJ02Sequence(Point points[],
+std::vector<const Point*> ShufflePMJ02Sequence(const pmj::Point points[],
                                                const int n);
 
 // This performs a shuffle similar to the one above, but it's easier and doesn't
 // require storing the shuffle, only a single random int. It doesn't shuffle
 // quite as well though.
-std::vector<Point*> ShufflePMJ02SequenceXor(Point points[],
+std::vector<const Point*> ShufflePMJ02SequenceXor(const pmj::Point points[],
                                                   const int n);
 
 // Just for comparison with performance testing and error analysis.
@@ -88,22 +88,22 @@ inline void UpdateMinDistSq(
   }
 }
 
-inline void UpdateMinDistSqWithPointInCell(Point& sample,
-                                           Point* sample_grid[],
+inline void UpdateMinDistSqWithPointInCell(const Point& sample,
+                                           const Point* sample_grid[],
                                                                    const int x,
                                                                    const int y,
                                                                    const int dim,
                                                                    double* min_dist_sq) {
   const int wrapped_x = WrapIndex(x, dim);
   const int wrapped_y = WrapIndex(y, dim);
-  Point* pt = sample_grid[wrapped_y*dim + wrapped_x];
+  const Point* pt = sample_grid[wrapped_y*dim + wrapped_x];
   if (pt != nullptr) {
     UpdateMinDistSq(sample, *pt, min_dist_sq);
   }
 }
 
-double GetNearestNeighborDistSq(Point& sample,
-                                Point* sample_grid[],
+double GetNearestNeighborDistSq(const Point& sample,
+                                const Point* sample_grid[],
                                                         const int dim,
                                                         const double max_min_dist_sq) {
   // This function works by using the sample grid, since we know that the points
@@ -157,8 +157,8 @@ double GetNearestNeighborDistSq(Point& sample,
   return min_dist_sq;
 }
 
-Point GetBestCandidateOfSamples(std::vector<Point>& candidates,
-                                Point* sample_grid[],
+Point GetBestCandidateOfSamples(const std::vector<Point>& candidates,
+                                const Point* sample_grid[],
                                                         const int dim) {
   // Hypothetically, it could be faster to search all the points in parallel,
   // culling points as we go, but a naive implementation of this was only a tiny
@@ -191,11 +191,11 @@ Point GetBestCandidateOfSamples(std::vector<Point>& candidates,
  * sequence, at least if it's constructed using the ShuffleSwap subquadrant
  * selection.
  */
-std::vector<Point*> ShufflePMJ02Sequence(Point points[],
+std::vector<const Point*> ShufflePMJ02Sequence(const pmj::Point points[],
                                                const int n,
                                                random_gen& rng) {
   assert((n & (n - 1)) == 0);  // This function only works for powers of two.
-  std::vector<Point*> shuffled_points(n);
+  std::vector<const Point*> shuffled_points(n);
   for (int i = 0; i < n; i++) {
     shuffled_points[i] = &points[i];
   }
@@ -204,7 +204,7 @@ std::vector<Point*> ShufflePMJ02Sequence(Point points[],
     for (int i = 0; i < n; i += stride) {
       if (UniformRand(0,1,rng) < 0.5) {
         for (int j = 0; j < stride/2; j++) {
-          Point* pt = shuffled_points[i+j];
+          const Point* pt = shuffled_points[i+j];
           shuffled_points[i+j] = shuffled_points[i+j+stride/2];
           shuffled_points[i+j+stride/2] = pt;
         }
@@ -221,11 +221,11 @@ std::vector<Point*> ShufflePMJ02Sequence(Point points[],
  * shuffle as well, but the advantage is that you only need to have a single int
  * to encode the whole shuffle.
  */
-std::vector<Point*> ShufflePMJ02SequenceXor(Point points[],
+std::vector<const Point*> ShufflePMJ02SequenceXor(const pmj::Point points[],
                                                   const int n,
                                                   random_gen& rng) {
   assert((n & (n - 1)) == 0);  // This function only works for powers of two.
-  std::vector<Point*> shuffled_points(n);
+  std::vector<const Point*> shuffled_points(n);
   int random_encode = UniformInt(0, n-1, rng);
   for (int i = 0; i < n; i++) {
     shuffled_points[i] = &points[i^random_encode];

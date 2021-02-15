@@ -71,7 +71,7 @@ class SampleSet {
             int grid_memory_size = 1;
             while (grid_memory_size < num_samples)
                 grid_memory_size <<= 2;
-            sample_grid_ = std::make_unique<Point*[]>(grid_memory_size);
+            sample_grid_ = std::make_unique<const Point*[]>(grid_memory_size);
             std::fill_n(sample_grid_.get(), grid_memory_size, nullptr);
         }
 
@@ -96,7 +96,7 @@ class SampleSet {
         const Point& sample(const int sample_index) const {
             return samples_[sample_index];
         }
-        Point* samples() const {
+        const Point* samples() const {
             return samples_.get();
         }
         const int dim() const { return dim_; }
@@ -118,7 +118,7 @@ class SampleSet {
             vector<vector<bool>> strata_ {{false}};
 
             // The sample grid is used for nearest neighbor lookups.
-            std::unique_ptr<Point*[]> sample_grid_;
+            std::unique_ptr<const Point*[]> sample_grid_;
 
             int n_ = 1;  // Number of samples in the next pass.
             bool is_power_of_4_ = true;
@@ -200,7 +200,7 @@ void SampleSet::GenerateNewSample(const int sample_index,
 }
 
 void SampleSet::UpdateStrata(const int sample_index) {
-    Point& sample = samples_[sample_index];
+    const Point& sample = samples_[sample_index];
 
     for (int i = 0, strata_n_cols = n_, strata_n_rows = 1;
          strata_n_cols >= 1;
