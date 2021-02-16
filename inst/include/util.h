@@ -166,7 +166,7 @@ Point GetBestCandidateOfSamples(const std::vector<Point>& candidates,
   Point best_candidate;
   double max_min_dist_sq = 0.0;
 
-  for (int i = 0; i < candidates.size(); i++) {
+  for (size_t i = 0; i < candidates.size(); i++) {
     Point cand_sample = candidates[i];
     double dist_sq =
       GetNearestNeighborDistSq(cand_sample,
