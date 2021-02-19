@@ -15,7 +15,7 @@ static inline uint32_t hash_combine(uint32_t seed, uint32_t v) {
   return seed ^ (v + (seed << 6) + (seed >> 2));
 }
 
-uint32_t hash(uint32_t x) {
+static inline uint32_t hash(uint32_t x) {
   // finalizer from murmurhash3
   x ^= x >> 16;
   x *= 0x85ebca6bu;
@@ -73,7 +73,7 @@ static uint32_t directions[5][32] = {
   0x800228f8, 0x400b3cdc, 0x200fb67a, 0xb00ddb9d}
 };
 
-uint32_t sobol(uint32_t index, uint32_t dim) {
+static inline uint32_t sobol(uint32_t index, uint32_t dim) {
   if (dim > 4) return 0;
   uint32_t X = 0;
   for (int bit = 0; bit < 32; bit++) {
