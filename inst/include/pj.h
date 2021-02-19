@@ -75,7 +75,7 @@ void GenerateSamplesForQuadrant(
 
 std::unique_ptr<Point[]> GetProgJitteredSamples(
         const int num_samples, random_gen& rng) {
-    auto samples = std::make_unique<Point[]>(num_samples);
+    auto samples = std::unique_ptr<Point[]>(new Point[num_samples]());
 
     // Generate first sample randomly.
     samples[0] = RandomSample(0, 1, 0, 1, rng);

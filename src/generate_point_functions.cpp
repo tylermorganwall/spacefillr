@@ -7,6 +7,7 @@ using namespace Rcpp;
 #include "pmj02.h"
 #include "sobol.h"
 #include "halton_sampler.h"
+#include "samplerBlueNoise.h"
 
 #include "rng.h"
 
@@ -29,7 +30,7 @@ List rcpp_generate_sobol_owen_set(uint64_t  N, unsigned int dim, unsigned int sc
   int counter = 0;
   for(unsigned int j = 0; j < dim; j++) {
     for(uint64_t i = 0; i < N; i++) {
-      final_set(counter) = spacefillr::sobol_owen_reference_single(i, j, scramble);
+      final_set(counter) = spacefillr::sobol_owen_single(i, j, scramble);
       counter = counter + 1;
     }
   }
@@ -37,21 +38,8 @@ List rcpp_generate_sobol_owen_set(uint64_t  N, unsigned int dim, unsigned int sc
 }
 
 // [[Rcpp::export]]
-List rcpp_generate_sobol_owen_fast_set(uint64_t  N, unsigned int dim, unsigned int scramble) {
-  List final_set(N*dim);
-  int counter = 0;
-  for(unsigned int j = 0; j < dim; j++) {
-    for(uint64_t i = 0; i < N; i++) {
-      final_set(counter) = spacefillr::sobol_owen_fast_single(i, j, scramble);
-      counter = counter + 1;
-    }
-  }
-  return(final_set);
-}
-
-// [[Rcpp::export]]
-double rcpp_generate_sobol_owen_fast_single(uint64_t  i, unsigned int dim, unsigned int scramble) {
-  return(spacefillr::sobol_owen_fast_single(i, dim, scramble));
+double rcpp_generate_sobol_owen_single(uint64_t  i, unsigned int dim, unsigned int scramble) {
+  return(spacefillr::sobol_owen_single(i, dim, scramble));
 }
 
 
@@ -178,8 +166,3 @@ List rcpp_generate_pmj02bn_set(uint64_t  N, int seed) {
   }
   return(final_set);
 }
-
-
-
-
-

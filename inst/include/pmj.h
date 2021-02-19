@@ -50,12 +50,12 @@ class SampleSet2 {
                            const int num_candidates,
                            random_gen& rng_)
             : num_candidates_(num_candidates), rng(rng_) {
-            samples_ = std::make_unique<Point[]>(num_samples);
+            samples_ = std::unique_ptr<Point[]>(new Point[num_samples]());
 
             int grid_memory_size = 1;
             while (grid_memory_size < num_samples)
                 grid_memory_size <<= 2;
-            sample_grid_ = std::make_unique<const Point*[]>(grid_memory_size);
+            sample_grid_ = std::unique_ptr<const Point*[]>(new const Point*[grid_memory_size]());
             x_strata_.resize(grid_memory_size);
             y_strata_.resize(grid_memory_size);
         }

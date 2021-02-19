@@ -31,29 +31,16 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// rcpp_generate_sobol_owen_fast_set
-List rcpp_generate_sobol_owen_fast_set(uint64_t N, unsigned int dim, unsigned int scramble);
-RcppExport SEXP _spacefillr_rcpp_generate_sobol_owen_fast_set(SEXP NSEXP, SEXP dimSEXP, SEXP scrambleSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< uint64_t >::type N(NSEXP);
-    Rcpp::traits::input_parameter< unsigned int >::type dim(dimSEXP);
-    Rcpp::traits::input_parameter< unsigned int >::type scramble(scrambleSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_generate_sobol_owen_fast_set(N, dim, scramble));
-    return rcpp_result_gen;
-END_RCPP
-}
-// rcpp_generate_sobol_owen_fast_single
-double rcpp_generate_sobol_owen_fast_single(uint64_t i, unsigned int dim, unsigned int scramble);
-RcppExport SEXP _spacefillr_rcpp_generate_sobol_owen_fast_single(SEXP iSEXP, SEXP dimSEXP, SEXP scrambleSEXP) {
+// rcpp_generate_sobol_owen_single
+double rcpp_generate_sobol_owen_single(uint64_t i, unsigned int dim, unsigned int scramble);
+RcppExport SEXP _spacefillr_rcpp_generate_sobol_owen_single(SEXP iSEXP, SEXP dimSEXP, SEXP scrambleSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< uint64_t >::type i(iSEXP);
     Rcpp::traits::input_parameter< unsigned int >::type dim(dimSEXP);
     Rcpp::traits::input_parameter< unsigned int >::type scramble(scrambleSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_generate_sobol_owen_fast_single(i, dim, scramble));
+    rcpp_result_gen = Rcpp::wrap(rcpp_generate_sobol_owen_single(i, dim, scramble));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -171,8 +158,7 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_spacefillr_rcpp_generate_sobol_set", (DL_FUNC) &_spacefillr_rcpp_generate_sobol_set, 3},
     {"_spacefillr_rcpp_generate_sobol_owen_set", (DL_FUNC) &_spacefillr_rcpp_generate_sobol_owen_set, 3},
-    {"_spacefillr_rcpp_generate_sobol_owen_fast_set", (DL_FUNC) &_spacefillr_rcpp_generate_sobol_owen_fast_set, 3},
-    {"_spacefillr_rcpp_generate_sobol_owen_fast_single", (DL_FUNC) &_spacefillr_rcpp_generate_sobol_owen_fast_single, 3},
+    {"_spacefillr_rcpp_generate_sobol_owen_single", (DL_FUNC) &_spacefillr_rcpp_generate_sobol_owen_single, 3},
     {"_spacefillr_rcpp_generate_halton_faure_set", (DL_FUNC) &_spacefillr_rcpp_generate_halton_faure_set, 2},
     {"_spacefillr_rcpp_generate_halton_random_set", (DL_FUNC) &_spacefillr_rcpp_generate_halton_random_set, 3},
     {"_spacefillr_rcpp_generate_halton_faure_single", (DL_FUNC) &_spacefillr_rcpp_generate_halton_faure_single, 2},

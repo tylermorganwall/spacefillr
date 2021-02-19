@@ -12,12 +12,16 @@ status](https://github.com/tylermorganwall/spacefillr/workflows/R-CMD-check/badg
 
 spacefillr is a package for generating random and quasi-random
 space-filling sequences. Supports the following sequences: ‘Halton’,
-‘Sobol’, ‘Owen’-scrambled ‘Sobol’, progressive jittered, progressive
+‘Sobol’, ‘Owen’-scrambled ‘Sobol’, ‘Owen’-scrambled ‘Sobol’ with
+errors distributed as blue noise, progressive jittered, progressive
 multi-jittered (‘PMJ’), ‘PMJ’ with blue noise, ‘PMJ02’, and ‘PMJ02’ with
 blue noise. Includes a ‘C++’ ‘API’. Methods derived from “Constructing
 Sobol sequences with better two-dimensional projections” (2012) S. Joe
 and F. Y. Kuo, and “Progressive Multi‐Jittered Sample Sequences” (2018)
-Christensen, P., Kensler, A. and Kilpatrick, C.
+Christensen, P., Kensler, A. and Kilpatrick, C, and “A Low-Discrepancy
+Sampler that Distributes Monte Carlo Errors as a Blue Noise in Screen
+Space” (2019) E. Heitz, B. Laurent, O. Victor, C. David and I.
+Jean-Claude.
 
 ## Installation
 
@@ -141,7 +145,6 @@ ggplot() +
   geom_line(data=results_halton_convergence,aes(x=iteration,y=pi_estimate), color="black") + 
   geom_line(data=results_owen_sobol_convergence,aes(x=iteration,y=pi_estimate), color="green") +
   scale_y_continuous(limits=c(3,4))
-#> Warning: Removed 3 row(s) containing missing values (geom_path).
 ```
 
 <img src="man/figures/README-convergence3-1.png" width="100%" />
@@ -227,14 +230,11 @@ needed):
 //Sobol, no Owen-scrambling: 1st value, 10th dimension
 double val1 = spacefillr::sobol_single(1, 10)
 
-//Slow (but highest quality) generator: 1st value, 10th dimension,  setting the random seed for that sequence to 1234
-double val2 = spacefillr::sobol_owen_reference_single(1, 10, 1234)
-
 //Fast generator: 1st value, 10th dimension,  setting the random seed for that sequence to 1234
-double val3 = spacefillr::sobol_owen_fast_single(1, 10, 1234)
+double val3 = spacefillr::sobol_owen_single(1, 10, 1234)
 
 //This generates a 3D point in space
-double val[3] = {spacefillr::sobol_owen_fast_single(1,1, 10),
-                 spacefillr::sobol_owen_fast_single(1,2, 10), 
-                 spacefillr::sobol_owen_fast_single(1,3, 10)};
+double val[3] = {spacefillr::sobol_owen_single(1,1, 10),
+                 spacefillr::sobol_owen_single(1,2, 10), 
+                 spacefillr::sobol_owen_single(1,3, 10)};
 ```

@@ -9,12 +9,8 @@ rcpp_generate_sobol_owen_set <- function(N, dim, scramble) {
     .Call(`_spacefillr_rcpp_generate_sobol_owen_set`, N, dim, scramble)
 }
 
-rcpp_generate_sobol_owen_fast_set <- function(N, dim, scramble) {
-    .Call(`_spacefillr_rcpp_generate_sobol_owen_fast_set`, N, dim, scramble)
-}
-
-rcpp_generate_sobol_owen_fast_single <- function(i, dim, scramble) {
-    .Call(`_spacefillr_rcpp_generate_sobol_owen_fast_single`, i, dim, scramble)
+rcpp_generate_sobol_owen_single <- function(i, dim, scramble) {
+    .Call(`_spacefillr_rcpp_generate_sobol_owen_single`, i, dim, scramble)
 }
 
 rcpp_generate_halton_faure_set <- function(N, dim) {

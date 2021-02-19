@@ -5,3 +5,8 @@
 ^\.github$
 ^README\.Rmd$
 ^README\.md$
+^docs$
+^.+\.png$
+^.+\.mp4$
+^.*yml$
+^pkgdown$

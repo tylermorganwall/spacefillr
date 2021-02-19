@@ -24,7 +24,7 @@ knitr::opts_chunk$set(
 [![R-CMD-check](https://github.com/tylermorganwall/spacefillr/workflows/R-CMD-check/badge.svg)](https://github.com/tylermorganwall/spacefillr/actions)
 <!-- badges: end -->
 
-spacefillr is a package for generating random and quasi-random space-filling sequences. Supports the following sequences: 'Halton', 'Sobol', 'Owen'-scrambled 'Sobol', progressive jittered, progressive multi-jittered ('PMJ'), 'PMJ' with blue noise, 'PMJ02', and 'PMJ02' with blue noise. Includes a 'C++' 'API'. Methods derived from "Constructing Sobol sequences with better two-dimensional projections" (2012) S. Joe and F. Y. Kuo, and "Progressive Multi‐Jittered Sample Sequences" (2018) Christensen, P., Kensler, A. and Kilpatrick, C. 
+spacefillr is a package for generating random and quasi-random space-filling sequences. Supports the following sequences: 'Halton', 'Sobol', 'Owen'-scrambled 'Sobol', 'Owen'-scrambled 'Sobol' with errors distributed as blue noise, progressive jittered, progressive multi-jittered ('PMJ'), 'PMJ' with blue noise, 'PMJ02', and 'PMJ02' with blue noise. Includes a 'C++' 'API'. Methods derived from "Constructing Sobol sequences with better two-dimensional projections" (2012) S. Joe and F. Y. Kuo, and "Progressive Multi‐Jittered Sample Sequences" (2018) Christensen, P., Kensler, A. and Kilpatrick, C, and "A Low-Discrepancy Sampler that Distributes Monte Carlo Errors as a Blue Noise in Screen Space" (2019) E. Heitz, B. Laurent, O. Victor, C. David and I. Jean-Claude. 
 
 ## Installation
 
@@ -189,14 +189,11 @@ To access Sobol values, call the following functions (no object is needed):
 //Sobol, no Owen-scrambling: 1st value, 10th dimension
 double val1 = spacefillr::sobol_single(1, 10)
 
-//Slow (but highest quality) generator: 1st value, 10th dimension,  setting the random seed for that sequence to 1234
-double val2 = spacefillr::sobol_owen_reference_single(1, 10, 1234)
-
 //Fast generator: 1st value, 10th dimension,  setting the random seed for that sequence to 1234
-double val3 = spacefillr::sobol_owen_fast_single(1, 10, 1234)
+double val3 = spacefillr::sobol_owen_single(1, 10, 1234)
 
 //This generates a 3D point in space
-double val[3] = {spacefillr::sobol_owen_fast_single(1,1, 10),
-                 spacefillr::sobol_owen_fast_single(1,2, 10), 
-                 spacefillr::sobol_owen_fast_single(1,3, 10)};
+double val[3] = {spacefillr::sobol_owen_single(1,1, 10),
+                 spacefillr::sobol_owen_single(1,2, 10), 
+                 spacefillr::sobol_owen_single(1,3, 10)};
 ```

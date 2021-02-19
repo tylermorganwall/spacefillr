@@ -235,7 +235,7 @@ std::vector<const Point*> ShufflePMJ02SequenceXor(const pmj::Point points[],
 }
 
 std::unique_ptr<Point[]> GetUniformRandomSamples(const int num_samples, random_gen& rng) {
-  auto samples = std::make_unique<Point[]>(num_samples);
+  auto samples = std::unique_ptr<Point[]>(new Point[num_samples]());
 
   for (int i = 0; i < num_samples; i++) {
     samples[i] = {UniformRand(0,1,rng), UniformRand(0,1,rng)};
