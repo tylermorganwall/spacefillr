@@ -136,10 +136,16 @@ static inline  uint32_t owen_scramble_fast_u32(uint32_t x, uint32_t seed)  {
   // x ^= x.wrapping_mul(0x8d22f6e6);
 
   // // Fast, reasonable quality.
-  x = x + (x << 2);
-  x ^= x * (0xfe9b5742);
-  x = x + (seed);
-  x = x + (seed | 1);
+  // x = x + (x << 2);
+  // x ^= x * (0xfe9b5742);
+  // x = x + (seed);
+  // x = x + (seed | 1);
+
+  x ^= x * 0x3d20adea;
+  x += seed;
+  x *= (seed >> 16) | 1;
+  x ^= x * 0x05526c56;
+  x ^= x * 0x53a22864;
 
   // // Medium-fast, best quality so far.
   // x  = x * (0x788aeeed);
