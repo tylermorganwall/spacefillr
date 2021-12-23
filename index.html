@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,25 +33,19 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">spacefillr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="reference/index.html">Reference</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/tylermorganwall/spacefillr/">
+  <a href="https://github.com/tylermorganwall/spacefillr/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -66,30 +62,30 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="spacefillr" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#spacefillr" class="anchor"></a>spacefillr</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="spacefillr">spacefillr<a class="anchor" aria-label="anchor" href="#spacefillr"></a>
+</h1></div>
 <!-- badges: start -->
 
 <p>spacefillr is a package for generating random and quasi-random space-filling sequences. Supports the following sequences: ‘Halton’, ‘Sobol’, ‘Owen’-scrambled ‘Sobol’, ‘Owen’-scrambled ‘Sobol’ with errors distributed as blue noise, progressive jittered, progressive multi-jittered (‘PMJ’), ‘PMJ’ with blue noise, ‘PMJ02’, and ‘PMJ02’ with blue noise. Includes a ‘C++’ ‘API’. Methods derived from “Constructing Sobol sequences with better two-dimensional projections” (2012) S. Joe and F. Y. Kuo, and “Progressive Multi‐Jittered Sample Sequences” (2018) Christensen, P., Kensler, A. and Kilpatrick, C, and “A Low-Discrepancy Sampler that Distributes Monte Carlo Errors as a Blue Noise in Screen Space” (2019) E. Heitz, B. Laurent, O. Victor, C. David and I. Jean-Claude.</p>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
 <p>You can install the released version of spacefillr from Github with the following:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"tylermorganwall/spacefillr"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"tylermorganwall/spacefillr"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="example" class="section level2">
-<h2 class="hasAnchor">
-<a href="#example" class="anchor"></a>Example</h2>
+<div class="section level2">
+<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+</h2>
 <p>Generating random sequences is an important topic when trying to solve problems using Monte Carlo methods. Careful choice of the correct random (or quasi-random) sequence can result in much faster convergence to the final answer. Let’s take the problem of solving for the value of Pi by counting the number of values that fall within the unit circle. If we generate random values between 0 and 1, count how many fall within the unit circle, multiply by 4 and divide by the number of samples, we will get an estimate for Pi.</p>
 <p>Let’s first try this with purely uniform random numbers:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">ggplot2</span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">dplyr</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
-<span class="va">results_rand</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">2000</span><span class="op">)</span>,ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">results_rand</span><span class="op">)</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"y"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
+<span class="va">results_rand</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">2000</span><span class="op">)</span>,ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">results_rand</span><span class="op">)</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"y"</span><span class="op">)</span>
 
 <span class="va">results_rand</span> <span class="op">%&gt;%</span> 
   <span class="fu">mutate</span><span class="op">(</span>inside <span class="op">=</span> <span class="va">x</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="va">y</span><span class="op">^</span><span class="fl">2</span> <span class="op">&lt;</span> <span class="fl">1</span><span class="op">)</span> <span class="op">%&gt;%</span> 
@@ -101,7 +97,7 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">results_rand_convergence</span> <span class="op">=</span> <span class="va">results_rand</span> <span class="op">%&gt;%</span> 
   <span class="fu">mutate</span><span class="op">(</span>inside <span class="op">=</span> <span class="va">x</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="va">y</span><span class="op">^</span><span class="fl">2</span> <span class="op">&lt;</span> <span class="fl">1</span>, iteration <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu">n</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">mutate</span><span class="op">(</span>pi_estimate <span class="op">=</span> <span class="fl">4</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/cumsum.html">cumsum</a></span><span class="op">(</span><span class="va">inside</span><span class="op">)</span><span class="op">/</span><span class="va">iteration</span><span class="op">)</span> 
+  <span class="fu">mutate</span><span class="op">(</span>pi_estimate <span class="op">=</span> <span class="fl">4</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/cumsum.html" class="external-link">cumsum</a></span><span class="op">(</span><span class="va">inside</span><span class="op">)</span><span class="op">/</span><span class="va">iteration</span><span class="op">)</span> 
 
 <span class="fu">ggplot</span><span class="op">(</span><span class="va">results_rand_convergence</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_hline</span><span class="op">(</span>yintercept <span class="op">=</span> <span class="va">pi</span>, alpha<span class="op">=</span><span class="fl">0.25</span>,color<span class="op">=</span><span class="st">"black"</span>,size<span class="op">=</span><span class="fl">2</span><span class="op">)</span> <span class="op">+</span>
@@ -110,10 +106,10 @@
 <p>Uniform random numbers, however, have poor convergence properties. We can do better by using spacefillr to generate sequences that are more evenly distributed throughout space, which helps these Monte Carlo integrals converge more quickly.</p>
 <p>We’ll first start with a Halton sequence:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tylermorganwall/spacefillr">spacefillr</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tylermorganwall/spacefillr" class="external-link">spacefillr</a></span><span class="op">)</span>
 
-<span class="va">results_halton</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="reference/generate_halton_random_set.html">generate_halton_random_set</a></span><span class="op">(</span><span class="fl">1000</span>,<span class="fl">2</span>,seed<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">results_halton</span><span class="op">)</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"y"</span><span class="op">)</span>
+<span class="va">results_halton</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="reference/generate_halton_random_set.html">generate_halton_random_set</a></span><span class="op">(</span><span class="fl">1000</span>,<span class="fl">2</span>,seed<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">results_halton</span><span class="op">)</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"y"</span><span class="op">)</span>
 
 <span class="va">results_halton</span> <span class="op">%&gt;%</span> 
   <span class="fu">mutate</span><span class="op">(</span>inside <span class="op">=</span> <span class="va">x</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="va">y</span><span class="op">^</span><span class="fl">2</span> <span class="op">&lt;</span> <span class="fl">1</span><span class="op">)</span> <span class="op">%&gt;%</span> 
@@ -125,7 +121,7 @@
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">results_halton_convergence</span> <span class="op">=</span> <span class="va">results_halton</span> <span class="op">%&gt;%</span> 
   <span class="fu">mutate</span><span class="op">(</span>inside <span class="op">=</span> <span class="va">x</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="va">y</span><span class="op">^</span><span class="fl">2</span> <span class="op">&lt;</span> <span class="fl">1</span>, iteration <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu">n</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">mutate</span><span class="op">(</span>pi_estimate <span class="op">=</span> <span class="fl">4</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/cumsum.html">cumsum</a></span><span class="op">(</span><span class="va">inside</span><span class="op">)</span><span class="op">/</span><span class="va">iteration</span><span class="op">)</span> 
+  <span class="fu">mutate</span><span class="op">(</span>pi_estimate <span class="op">=</span> <span class="fl">4</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/cumsum.html" class="external-link">cumsum</a></span><span class="op">(</span><span class="va">inside</span><span class="op">)</span><span class="op">/</span><span class="va">iteration</span><span class="op">)</span> 
 
 <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_hline</span><span class="op">(</span>yintercept <span class="op">=</span> <span class="va">pi</span>, alpha<span class="op">=</span><span class="fl">0.25</span>,color<span class="op">=</span><span class="st">"black"</span>,size<span class="op">=</span><span class="fl">2</span><span class="op">)</span> <span class="op">+</span>
@@ -134,8 +130,8 @@
 <p><img src="reference/figures/README-convergence2-1.png" width="100%"></p>
 <p>We can see this set of quasi-random numbers converges significantly faster than random uniform. Let’s now use the gold-standard quasi-random sequence: Owen-scrambled Sobol. (note: another function <code>generate_sobol_owen_fast_set()</code> is also included in the package that outputs near-ideal Owen scrambled Sobol numbers, but is much faster).</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">results_owen_sobol</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="reference/generate_sobol_owen_set.html">generate_sobol_owen_set</a></span><span class="op">(</span><span class="fl">1000</span>,<span class="fl">2</span>,seed<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">results_owen_sobol</span><span class="op">)</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"y"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">results_owen_sobol</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="reference/generate_sobol_owen_set.html">generate_sobol_owen_set</a></span><span class="op">(</span><span class="fl">1000</span>,<span class="fl">2</span>,seed<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">results_owen_sobol</span><span class="op">)</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"y"</span><span class="op">)</span>
 
 <span class="va">results_owen_sobol</span> <span class="op">%&gt;%</span> 
   <span class="fu">mutate</span><span class="op">(</span>inside <span class="op">=</span> <span class="va">x</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="va">y</span><span class="op">^</span><span class="fl">2</span> <span class="op">&lt;</span> <span class="fl">1</span><span class="op">)</span> <span class="op">%&gt;%</span> 
@@ -147,19 +143,19 @@
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">results_owen_sobol_convergence</span> <span class="op">=</span> <span class="va">results_owen_sobol</span> <span class="op">%&gt;%</span> 
   <span class="fu">mutate</span><span class="op">(</span>inside <span class="op">=</span> <span class="va">x</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="va">y</span><span class="op">^</span><span class="fl">2</span> <span class="op">&lt;</span> <span class="fl">1</span>, iteration <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu">n</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">mutate</span><span class="op">(</span>pi_estimate <span class="op">=</span> <span class="fl">4</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/cumsum.html">cumsum</a></span><span class="op">(</span><span class="va">inside</span><span class="op">)</span><span class="op">/</span><span class="va">iteration</span><span class="op">)</span> 
+  <span class="fu">mutate</span><span class="op">(</span>pi_estimate <span class="op">=</span> <span class="fl">4</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/cumsum.html" class="external-link">cumsum</a></span><span class="op">(</span><span class="va">inside</span><span class="op">)</span><span class="op">/</span><span class="va">iteration</span><span class="op">)</span> 
 
 <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_hline</span><span class="op">(</span>yintercept <span class="op">=</span> <span class="va">pi</span>, alpha<span class="op">=</span><span class="fl">0.25</span>,color<span class="op">=</span><span class="st">"black"</span>,size<span class="op">=</span><span class="fl">2</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_line</span><span class="op">(</span>data<span class="op">=</span><span class="va">results_rand_convergence</span>,<span class="fu">aes</span><span class="op">(</span>x<span class="op">=</span><span class="va">iteration</span>,y<span class="op">=</span><span class="va">pi_estimate</span><span class="op">)</span>, color<span class="op">=</span><span class="st">"red"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_line</span><span class="op">(</span>data<span class="op">=</span><span class="va">results_halton_convergence</span>,<span class="fu">aes</span><span class="op">(</span>x<span class="op">=</span><span class="va">iteration</span>,y<span class="op">=</span><span class="va">pi_estimate</span><span class="op">)</span>, color<span class="op">=</span><span class="st">"black"</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu">geom_line</span><span class="op">(</span>data<span class="op">=</span><span class="va">results_owen_sobol_convergence</span>,<span class="fu">aes</span><span class="op">(</span>x<span class="op">=</span><span class="va">iteration</span>,y<span class="op">=</span><span class="va">pi_estimate</span><span class="op">)</span>, color<span class="op">=</span><span class="st">"green"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">scale_y_continuous</span><span class="op">(</span>limits<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">4</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+  <span class="fu">scale_y_continuous</span><span class="op">(</span>limits<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">4</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-convergence3-1.png" width="100%"></p>
 <p>Owen-scrambled Sobol converges the fastest out of all of the sequences. Also included are the progressive multijittered sequences, of which pmj02 has similar convergence properties to Owen-scrambled Sobol.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">results_owen_pmj02</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="reference/generate_pmj02_set.html">generate_pmj02_set</a></span><span class="op">(</span><span class="fl">1000</span>,seed<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">results_owen_pmj02</span><span class="op">)</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"y"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">results_owen_pmj02</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="reference/generate_pmj02_set.html">generate_pmj02_set</a></span><span class="op">(</span><span class="fl">1000</span>,seed<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">results_owen_pmj02</span><span class="op">)</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"y"</span><span class="op">)</span>
 
 <span class="va">results_owen_pmj02</span> <span class="op">%&gt;%</span> 
   <span class="fu">mutate</span><span class="op">(</span>inside <span class="op">=</span> <span class="va">x</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="va">y</span><span class="op">^</span><span class="fl">2</span> <span class="op">&lt;</span> <span class="fl">1</span><span class="op">)</span> <span class="op">%&gt;%</span> 
@@ -171,21 +167,21 @@
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">results_owen_pmj02_convergence</span> <span class="op">=</span> <span class="va">results_owen_pmj02</span> <span class="op">%&gt;%</span> 
   <span class="fu">mutate</span><span class="op">(</span>inside <span class="op">=</span> <span class="va">x</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="va">y</span><span class="op">^</span><span class="fl">2</span> <span class="op">&lt;</span> <span class="fl">1</span>, iteration <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu">n</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">mutate</span><span class="op">(</span>pi_estimate <span class="op">=</span> <span class="fl">4</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/cumsum.html">cumsum</a></span><span class="op">(</span><span class="va">inside</span><span class="op">)</span><span class="op">/</span><span class="va">iteration</span><span class="op">)</span> 
+  <span class="fu">mutate</span><span class="op">(</span>pi_estimate <span class="op">=</span> <span class="fl">4</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/cumsum.html" class="external-link">cumsum</a></span><span class="op">(</span><span class="va">inside</span><span class="op">)</span><span class="op">/</span><span class="va">iteration</span><span class="op">)</span> 
 
 <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_hline</span><span class="op">(</span>yintercept <span class="op">=</span> <span class="va">pi</span>, alpha<span class="op">=</span><span class="fl">0.25</span>,color<span class="op">=</span><span class="st">"black"</span>,size<span class="op">=</span><span class="fl">2</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_line</span><span class="op">(</span>data<span class="op">=</span><span class="va">results_owen_pmj02_convergence</span>,<span class="fu">aes</span><span class="op">(</span>x<span class="op">=</span><span class="va">iteration</span>,y<span class="op">=</span><span class="va">pi_estimate</span><span class="op">)</span>, color<span class="op">=</span><span class="st">"purple"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_line</span><span class="op">(</span>data<span class="op">=</span><span class="va">results_owen_sobol_convergence</span>,<span class="fu">aes</span><span class="op">(</span>x<span class="op">=</span><span class="va">iteration</span>,y<span class="op">=</span><span class="va">pi_estimate</span><span class="op">)</span>, color<span class="op">=</span><span class="st">"green"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">scale_y_continuous</span><span class="op">(</span>limits<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2.4</span>,<span class="fl">3.6</span><span class="op">)</span><span class="op">)</span>
+  <span class="fu">scale_y_continuous</span><span class="op">(</span>limits<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2.4</span>,<span class="fl">3.6</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; Warning: Removed 2 row(s) containing missing values (geom_path).</span>
 
 <span class="co">#&gt; Warning: Removed 2 row(s) containing missing values (geom_path).</span></code></pre></div>
 <p><img src="reference/figures/README-convergence4-1.png" width="100%"></p>
 <p>An interesting properties of pmj02 sequences (absent from Sobol sequences) is that they can be generated with blue noise properties.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">results_owen_pmj02bn</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="reference/generate_pmj02bn_set.html">generate_pmj02bn_set</a></span><span class="op">(</span><span class="fl">1000</span>,seed<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">results_owen_pmj02bn</span><span class="op">)</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"y"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">results_owen_pmj02bn</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="reference/generate_pmj02bn_set.html">generate_pmj02bn_set</a></span><span class="op">(</span><span class="fl">1000</span>,seed<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">results_owen_pmj02bn</span><span class="op">)</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="st">"y"</span><span class="op">)</span>
 
 <span class="va">results_owen_pmj02bn</span> <span class="op">%&gt;%</span> 
   <span class="fu">mutate</span><span class="op">(</span>inside <span class="op">=</span> <span class="va">x</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="va">y</span><span class="op">^</span><span class="fl">2</span> <span class="op">&lt;</span> <span class="fl">1</span><span class="op">)</span> <span class="op">%&gt;%</span> 
@@ -195,9 +191,9 @@
 <p><img src="reference/figures/README-pmj02bn-1.png" width="100%"></p>
 <p>This does not help convergence, but has some applications in some types of Monte Carlo problems.</p>
 </div>
-<div id="c-api" class="section level2">
-<h2 class="hasAnchor">
-<a href="#c-api" class="anchor"></a>C++ API</h2>
+<div class="section level2">
+<h2 id="c-api">C++ API<a class="anchor" aria-label="anchor" href="#c-api"></a>
+</h2>
 <p>This package also includes a C++ API for accessing Halton and Sobol sequences, which allows you to generate these sequences quickly in your C++ code. You can access a halton sequence by creating a Halton object:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1"></a><span class="pp">#include </span><span class="im">"halton_sampler.h"</span></span>
 <span id="cb11-2"><a href="#cb11-2"></a></span>
@@ -226,55 +222,65 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=spacefillr">https://​cloud.r-project.org/​package=spacefillr</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/tylermorganwall/spacefillr/">https://​github.com/​tylermorganwall/​spacefillr/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/tylermorganwall/spacefillr/issues">https://​github.com/​tylermorganwall/​spacefillr/​issues</a>
-</li>
+<li><a href="https://cloud.r-project.org/package=spacefillr" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/tylermorganwall/spacefillr/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/tylermorganwall/spacefillr/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
+<li><small><a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
+
 <div class="community">
-<h2>Community</h2>
+<h2 data-toc-skip>Community</h2>
 <ul class="list-unstyled">
 <li><a href="CONTRIBUTING.html">Contributing guide</a></li>
 <li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
 </ul>
 </div>
-<div class="developers">
-<h2>Developers</h2>
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li>Tyler Morgan-Wall <br><small class="roles"> Author, copyright holder, maintainer </small> <a href="https://orcid.org/0000-0002-3131-3814" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li><a href="authors.html">All authors...</a></li>
+<li><a href="authors.html#citation">Citing spacefillr</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/tylermorganwall/spacefillr/actions"><img src="https://github.com/tylermorganwall/spacefillr/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
-<li><a href="https://github.com/tylermorganwall/spacefillr/actions"><img src="https://github.com/tylermorganwall/spacefillr/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li>Tyler Morgan-Wall <br><small class="roles"> Author, copyright holder, maintainer </small> <a href="https://orcid.org/0000-0002-3131-3814" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/tylermorganwall/spacefillr/actions" class="external-link"><img src="https://github.com/tylermorganwall/spacefillr/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
+<li><a href="https://github.com/tylermorganwall/spacefillr/actions" class="external-link"><img src="https://github.com/tylermorganwall/spacefillr/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+</ul>
 </div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Tyler Morgan-Wall.</p>
+  <p></p>
+<p>Developed by Tyler Morgan-Wall.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -282,6 +288,8 @@
 
   
 
+
+  
 
   </body>
 </html>
