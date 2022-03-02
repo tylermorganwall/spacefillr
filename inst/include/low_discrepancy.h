@@ -1,7 +1,12 @@
 #ifndef LOW_D_H
 #define LOW_D_H
 
+#include <cstdint>
+#include <cmath>
+#include "Rcpp.h"
+
 namespace spacefillr {
+
 #ifndef FLOATDEF
 #define FLOATDEF
 #ifdef RAY_FLOAT_AS_DOUBLE
@@ -11,7 +16,7 @@ typedef float Float;
 #endif
 #endif
 
-inline uint32_t ReverseBits32(uint32_t n) {
+inline std::uint32_t ReverseBits32(std::uint32_t n) {
   n = (n << 16) | (n >> 16);
   n = ((n & 0x00ff00ff) << 8) | ((n & 0xff00ff00) >> 8);
   n = ((n & 0x0f0f0f0f) << 4) | ((n & 0xf0f0f0f0) >> 4);
@@ -20,9 +25,9 @@ inline uint32_t ReverseBits32(uint32_t n) {
   return n;
 }
 
-inline uint64_t ReverseBits64(uint64_t n) {
-  uint64_t n0 = ReverseBits32((uint32_t)n);
-  uint64_t n1 = ReverseBits32((uint32_t)(n >> 32));
+inline std::uint64_t ReverseBits64(std::uint64_t n) {
+  std::uint64_t n0 = ReverseBits32((std::uint32_t)n);
+  std::uint64_t n1 = ReverseBits32((std::uint32_t)(n >> 32));
   return (n0 << 32) | n1;
 }
 
@@ -35,13 +40,13 @@ static const Float OneMinusEpsilon = 0x1.fffffep-1;
 
 // Low Discrepancy Static Functions
 template <int base>
-static Float RadicalInverseSpecialized(uint64_t a) {
+static Float RadicalInverseSpecialized(std::uint64_t a) {
   const Float invBase = (Float)1 / (Float)base;
-  uint64_t reversedDigits = 0;
+  std::uint64_t reversedDigits = 0;
   Float invBaseN = 1;
   while (a) {
-    uint64_t next = a / base;
-    uint64_t digit = a - next * base;
+    std::uint64_t next = a / base;
+    std::uint64_t digit = a - next * base;
     reversedDigits = reversedDigits * base + digit;
     invBaseN *= invBase;
     a = next;
@@ -51,7 +56,7 @@ static Float RadicalInverseSpecialized(uint64_t a) {
 
 
 // Low Discrepancy Function Definitions
-Float RadicalInverse(int baseIndex, uint64_t a) {
+Float RadicalInverse(int baseIndex, std::uint64_t a) {
   switch (baseIndex) {
   case 0:
     // Compute base-2 radical inverse

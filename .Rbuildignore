@@ -11,3 +11,4 @@
 ^.+\.mp4$
 ^.*yml$
 ^pkgdown$
+^CODE_OF_CONDUCT\.md$
