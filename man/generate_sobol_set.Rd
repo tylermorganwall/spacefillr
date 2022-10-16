@@ -18,6 +18,10 @@ A single numeric value representing the `i`th element in the `dim` dimension.
 }
 \description{
 Generate a set of values from a Sobol set.
+
+Note: the Sobol sequences provided by spacefillr are different than those provided by randtoolbox,
+as spacefillr's Sobol sequences have better 2D projections
+(see "Constructing Sobol sequences with better two-dimensional projections" (2012) <doi:10.1137/070709359> S. Joe and F. Y. Kuo).
 }
 \examples{
 #Generate a 2D sample:

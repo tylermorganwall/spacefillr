@@ -111,6 +111,10 @@ generate_halton_faure_set = function(n, dim) {
 #'
 #'@description Generate a set of values from a Sobol set.
 #'
+#'Note: the Sobol sequences provided by spacefillr are different than those provided by randtoolbox,
+#'as spacefillr's Sobol sequences have better 2D projections
+#'(see "Constructing Sobol sequences with better two-dimensional projections" (2012) <doi:10.1137/070709359> S. Joe and F. Y. Kuo).
+#'
 #'@param n The number of values (per dimension) to extract.
 #'@param dim The number of dimensions of the sequence.
 #'@param seed Default `0`. The random seed.
