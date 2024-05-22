@@ -5,6 +5,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // rcpp_generate_sobol_set
 List rcpp_generate_sobol_set(uint64_t N, unsigned int dim, unsigned int scramble);
 RcppExport SEXP _spacefillr_rcpp_generate_sobol_set(SEXP NSEXP, SEXP dimSEXP, SEXP scrambleSEXP) {
