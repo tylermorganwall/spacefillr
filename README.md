@@ -8,12 +8,13 @@
 [![R build
 status](https://github.com/tylermorganwall/spacefillr/workflows/R-CMD-check/badge.svg)](https://github.com/tylermorganwall/spacefillr/actions)
 [![R-CMD-check](https://github.com/tylermorganwall/spacefillr/workflows/R-CMD-check/badge.svg)](https://github.com/tylermorganwall/spacefillr/actions)
+[![R-CMD-check](https://github.com/tylermorganwall/spacefillr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/tylermorganwall/spacefillr/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 spacefillr is a package for generating random and quasi-random
 space-filling sequences. Supports the following sequences: ‘Halton’,
-‘Sobol’, ‘Owen’-scrambled ‘Sobol’, ‘Owen’-scrambled ‘Sobol’ with
-errors distributed as blue noise, progressive jittered, progressive
+‘Sobol’, ‘Owen’-scrambled ‘Sobol’, ‘Owen’-scrambled ‘Sobol’ with errors
+distributed as blue noise, progressive jittered, progressive
 multi-jittered (‘PMJ’), ‘PMJ’ with blue noise, ‘PMJ02’, and ‘PMJ02’ with
 blue noise. Includes a ‘C++’ ‘API’. Methods derived from “Constructing
 Sobol sequences with better two-dimensional projections” (2012) S. Joe
@@ -71,6 +72,11 @@ results_rand_convergence = results_rand %>%
 ggplot(results_rand_convergence) +
   geom_hline(yintercept = pi, alpha=0.25,color="black",size=2) +
   geom_line(aes(x=iteration,y=pi_estimate))
+#> Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+#> ℹ Please use `linewidth` instead.
+#> This warning is displayed once every 8 hours.
+#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+#> generated.
 ```
 
 <img src="man/figures/README-convergence1-1.png" width="100%" />
@@ -106,7 +112,7 @@ results_halton_convergence = results_halton %>%
   mutate(pi_estimate = 4*cumsum(inside)/iteration) 
 
 ggplot() +
-  geom_hline(yintercept = pi, alpha=0.25,color="black",size=2) +
+  geom_hline(yintercept = pi, alpha=0.25,color="black",linewidth=2) +
   geom_line(data=results_rand_convergence,aes(x=iteration,y=pi_estimate), color="red") +
   geom_line(data=results_halton_convergence,aes(x=iteration,y=pi_estimate), color="black")
 ```
@@ -140,7 +146,7 @@ results_owen_sobol_convergence = results_owen_sobol %>%
   mutate(pi_estimate = 4*cumsum(inside)/iteration) 
 
 ggplot() +
-  geom_hline(yintercept = pi, alpha=0.25,color="black",size=2) +
+  geom_hline(yintercept = pi, alpha=0.25,color="black",linewidth=2) +
   geom_line(data=results_rand_convergence,aes(x=iteration,y=pi_estimate), color="red") +
   geom_line(data=results_halton_convergence,aes(x=iteration,y=pi_estimate), color="black") + 
   geom_line(data=results_owen_sobol_convergence,aes(x=iteration,y=pi_estimate), color="green") +
@@ -174,13 +180,14 @@ results_owen_pmj02_convergence = results_owen_pmj02 %>%
   mutate(pi_estimate = 4*cumsum(inside)/iteration) 
 
 ggplot() +
-  geom_hline(yintercept = pi, alpha=0.25,color="black",size=2) +
+  geom_hline(yintercept = pi, alpha=0.25,color="black",linewidth=2) +
   geom_line(data=results_owen_pmj02_convergence,aes(x=iteration,y=pi_estimate), color="purple") +
   geom_line(data=results_owen_sobol_convergence,aes(x=iteration,y=pi_estimate), color="green") +
   scale_y_continuous(limits=c(2.4,3.6))
-#> Warning: Removed 2 row(s) containing missing values (geom_path).
-
-#> Warning: Removed 2 row(s) containing missing values (geom_path).
+#> Warning: Removed 2 rows containing missing values or values outside the scale range
+#> (`geom_line()`).
+#> Removed 2 rows containing missing values or values outside the scale range
+#> (`geom_line()`).
 ```
 
 <img src="man/figures/README-convergence4-1.png" width="100%" />
