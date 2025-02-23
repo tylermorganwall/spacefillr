@@ -116,7 +116,7 @@ generate_halton_faure_set = function(n, dim) {
 #'(see "Constructing Sobol sequences with better two-dimensional projections" (2012) <doi:10.1137/070709359> S. Joe and F. Y. Kuo).
 #'
 #'@param n The number of values (per dimension) to extract.
-#'@param dim The number of dimensions of the sequence.
+#'@param dim The number of dimensions of the sequence. This has a maximum value of 1024.
 #'@param seed Default `0`. The random seed.
 #'@return A single numeric value representing the `i`th element in the `dim` dimension.
 #'
@@ -146,7 +146,7 @@ generate_sobol_set = function(n, dim, seed = 0) {
 #'@description Generate a set of values from an Owen-scrambled Sobol set.
 #'
 #'@param n The number of values (per dimension) to extract.
-#'@param dim The number of dimensions of the sequence.
+#'@param dim The number of dimensions of the sequence. This has a maximum value of 21201.
 #'@param seed Default `0`. The random seed.
 #'@return An `n` x `dim` matrix with all the calculated values from the set.
 #'

@@ -9,7 +9,7 @@ generate_sobol_set(n, dim, seed = 0)
 \arguments{
 \item{n}{The number of values (per dimension) to extract.}
 
-\item{dim}{The number of dimensions of the sequence.}
+\item{dim}{The number of dimensions of the sequence. This has a maximum value of 1024.}
 
 \item{seed}{Default `0`. The random seed.}
 }
